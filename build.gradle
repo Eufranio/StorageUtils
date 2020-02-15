@@ -29,7 +29,7 @@ dependencies {
 }
 
 configurations {
-    api.extendsFrom shadow
+    shadow.extendsFrom api
 }
 
 shadowJar {
