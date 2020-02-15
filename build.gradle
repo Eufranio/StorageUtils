@@ -14,7 +14,7 @@ plugins {
 }
 
 group 'io.github.eufranio'
-version '1.0'
+version '2.0'
 
 sourceCompatibility = 1.8
 
@@ -26,6 +26,10 @@ dependencies {
     compile 'org.spongepowered:spongeapi:7.2.0-SNAPSHOT'
     shadow ('com.j256.ormlite:ormlite-jdbc:5.1') { transitive = false }
     shadow ('com.j256.ormlite:ormlite-core:5.1') { transitive = false }
+}
+
+configurations {
+    compile.extendsFrom shadow
 }
 
 shadowJar {
