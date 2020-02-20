@@ -85,6 +85,7 @@ public class Persistable<T extends BaseDaoEnabled<T, ID>, ID> {
             if (obj == null) {
                 obj = this.objDao.getDataClass().newInstance();
                 Field f = obj.getClass().getDeclaredField(this.idFieldName);
+                f.setAccessible(true);
                 f.set(obj, id);
                 this.save(obj);
             }
