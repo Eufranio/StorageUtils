@@ -8,6 +8,7 @@ import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.misc.BaseDaoEnabled;
 import com.j256.ormlite.table.TableUtils;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.sql.SQLException;
 import java.util.List;
@@ -36,6 +37,8 @@ public class Persistable<T extends BaseDaoEnabled<T, ID>, ID> {
                     .findFirst();
             if (source.isPresent()) {
                 src = source.get();
+                if (!src.isOpen(null))
+                    src.initialize();
             } else {
                 if (url.contains("sqlite")) {
                     src = new JdbcConnectionSource(url);
@@ -94,6 +97,14 @@ public class Persistable<T extends BaseDaoEnabled<T, ID>, ID> {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void closeConnection() {
+        try {
+            this.src.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
