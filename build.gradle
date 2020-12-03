@@ -25,8 +25,8 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'org.spigotmc:spigot-api:1.12-R0.1-SNAPSHOT'
-    compileOnly 'org.spongepowered:spongeapi:7.2.0-SNAPSHOT'
+    implementation 'org.spigotmc:spigot-api:1.12-R0.1-SNAPSHOT'
+    implementation 'org.spongepowered:spongeapi:7.2.0-SNAPSHOT'
 
     shadow 'org.spongepowered:configurate-core:3.6.1'
     shadow 'org.spongepowered:configurate-hocon:3.6.1'
