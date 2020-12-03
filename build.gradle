@@ -26,21 +26,17 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.spigotmc:spigot-api:1.12-R0.1-SNAPSHOT'
-    implementation 'org.spongepowered:spongeapi:7.2.0-SNAPSHOT'
+    shadow 'org.spigotmc:spigot-api:1.12-R0.1-SNAPSHOT'
+    shadow 'org.spongepowered:spongeapi:7.2.0-SNAPSHOT'
 
-    shadow 'org.spongepowered:configurate-core:3.6.1'
-    shadow 'org.spongepowered:configurate-hocon:3.6.1'
-    shadow 'com.j256.ormlite:ormlite-jdbc:5.1'
-    shadow 'com.j256.ormlite:ormlite-core:5.1'
-}
-
-configurations {
-    shadow.extendsFrom api
+    implementation 'org.spongepowered:configurate-core:3.6.1'
+    implementation 'org.spongepowered:configurate-hocon:3.6.1'
+    implementation 'com.j256.ormlite:ormlite-jdbc:5.1'
+    implementation 'com.j256.ormlite:ormlite-core:5.1'
 }
 
 shadowJar {
-    configurations = [project.configurations.shadow]
+    configurations = [project.configurations.implementation]
 
     archiveClassifier = System.getenv('JITPACK') != null ? 'all' : null
     from sourceSets.main.output
