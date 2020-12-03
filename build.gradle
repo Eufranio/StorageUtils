@@ -21,12 +21,17 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
 }
 
 dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.12-R0.1-SNAPSHOT'
     compileOnly 'org.spongepowered:spongeapi:7.2.0-SNAPSHOT'
-    shadow ('com.j256.ormlite:ormlite-jdbc:5.1') { transitive = false }
-    shadow ('com.j256.ormlite:ormlite-core:5.1') { transitive = false }
+
+    shadow 'org.spongepowered:configurate-core:3.6.1'
+    shadow 'org.spongepowered:configurate-hocon:3.6.1'
+    shadow 'com.j256.ormlite:ormlite-jdbc:5.1'
+    shadow 'com.j256.ormlite:ormlite-core:5.1'
 }
 
 configurations {
@@ -36,8 +41,21 @@ configurations {
 shadowJar {
     configurations = [project.configurations.shadow]
 
-    classifier = null // Remove '-all' suffix from output file name
+    archiveClassifier = System.getenv('JITPACK') != null ? 'all' : null
     from sourceSets.main.output
+
+    relocate 'ninja.leaping.configurate', 'storageutils.ninja.leaping.configurate'
 }
 
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+    archives shadowJar
+}
+
+build.dependsOn shadowJar
 install.dependsOn shadowJar
