@@ -36,8 +36,6 @@ dependencies {
 }
 
 shadowJar {
-    configurations = [project.configurations.implementation]
-
     archiveClassifier = System.getenv('JITPACK') != null ? 'all' : null
     from sourceSets.main.output
 
