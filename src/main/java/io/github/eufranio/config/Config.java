@@ -1,9 +1,9 @@
 package io.github.eufranio.config;
 
-import com.google.common.reflect.TypeToken;
-import ninja.leaping.configurate.ConfigurationOptions;
-import ninja.leaping.configurate.commented.CommentedConfigurationNode;
-import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
+import io.leangen.geantyref.TypeToken;
+import org.spongepowered.configurate.CommentedConfigurationNode;
+import org.spongepowered.configurate.ConfigurationOptions;
+import org.spongepowered.configurate.hocon.HoconConfigurationLoader;
 
 import java.io.File;
 
@@ -27,18 +27,18 @@ public class Config<T> {
         } catch (Exception e) { e.printStackTrace(); }
 
         this.clazz = clazz;
-        this.token = TypeToken.of(clazz);
+        this.token = TypeToken.get(clazz);
         this.loader = HoconConfigurationLoader.builder()
-                .setFile(file)
+                .file(file)
                 .build();
         this.value = load(false);
     }
 
     private T load(boolean set) {
         try {
-            this.node = this.loader.load(ConfigurationOptions.defaults().setShouldCopyDefaults(true));
-            T value = set ? this.value : this.node.getNode("config").getValue(token, clazz.newInstance());
-            this.node.getNode("config").setValue(token, value);
+            this.node = this.loader.load(ConfigurationOptions.defaults().shouldCopyDefaults(true));
+            T value = set ? this.value : this.node.node("config").get(token, clazz.newInstance());
+            this.node.node("config").set(token, value);
             this.loader.save(this.node);
             return value;
         } catch (Exception e) {

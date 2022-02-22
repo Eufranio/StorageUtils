@@ -2,4 +2,4 @@ name: StorageUtils
 main: io.github.eufranio.StorageUtils
 version: ${project.version}
 api-version: 1.12
-authors: [WesternPine]
+authors: [Eufranio]
