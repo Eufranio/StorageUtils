@@ -52,3 +52,11 @@ artifacts {
 
 build.dependsOn shadowJar
 publish.dependsOn shadowJar
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+}
