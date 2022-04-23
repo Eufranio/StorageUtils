@@ -14,7 +14,7 @@ plugins {
 
 apply plugin: 'java-library'
 group 'io.github.eufranio'
-version '2.5'
+version '2.5.2'
 
 //sourceCompatibility = 1.8
 
